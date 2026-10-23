@@ -41,3 +41,8 @@ jobs:
           publish_dir: ./_site
           publish_branch: gh-pages
           force_orphan: true
+
+      - name: Verify GitHub Pages deployment
+        run: |
+          curl --fail --silent --show-error --retry 6 --retry-delay 10 --retry-all-errors -o /dev/null -w "Homepage: %{http_code}\n" https://spaldingpitzenur80648.github.io/LJT-Homepage/
+          curl --fail --silent --show-error --retry 6 --retry-delay 10 --retry-all-errors -o /dev/null -w "Publications: %{http_code}\n" https://spaldingpitzenur80648.github.io/LJT-Homepage/publications/
