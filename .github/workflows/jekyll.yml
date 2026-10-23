@@ -34,6 +34,15 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
           cache-version: 0
+      - name: Enable GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${{ github.repository }}/pages" > /dev/null 2>&1; then
+            gh api --method PUT "repos/${{ github.repository }}/pages" -f build_type=workflow
+          else
+            gh api --method POST "repos/${{ github.repository }}/pages" -f build_type=workflow
+          fi
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6.0.0
       - name: Build with Jekyll
