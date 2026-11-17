@@ -1,0 +1,34 @@
+name: Jekyll Build Check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1.328.0
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          cache-version: 0
+      - name: Build site
+        run: bundle exec jekyll build --baseurl "/LJT-Homepage"
+        env:
+          JEKYLL_ENV: production
+        continue-on-error: true
+      - name: Report build result
+        run: |
+          if [ -d _site ]; then
+            echo "Jekyll produced _site output."
+            exit 0
+          else
+            echo "Jekyll did not produce _site output."
+            exit 1
+          fi
