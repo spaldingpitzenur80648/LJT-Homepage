@@ -19,16 +19,14 @@ jobs:
           bundler-cache: true
           cache-version: 0
       - name: Build site
-        run: bundle exec jekyll build --baseurl "/LJT-Homepage"
+        run: bundle exec jekyll build --baseurl "/LJT-Homepage" --trace
         env:
           JEKYLL_ENV: production
-        continue-on-error: true
-      - name: Report build result
+      - name: Verify content
         run: |
-          if [ -d _site ]; then
-            echo "Jekyll produced _site output."
-            exit 0
-          else
-            echo "Jekyll did not produce _site output."
-            exit 1
-          fi
+          test -f _site/index.html
+          grep -q "Junteng Liu" _site/index.html
+          grep -q "SynLogic" _site/index.html
+          grep -q "Publications" _site/index.html
+          test -f _site/publications/index.html
+          grep -q "SynLogic" _site/publications/index.html
