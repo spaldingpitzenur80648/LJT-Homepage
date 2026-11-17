@@ -25,8 +25,44 @@ jobs:
       - name: Verify content
         run: |
           test -f _site/index.html
-          grep -q "Junteng Liu" _site/index.html
-          grep -q "SynLogic" _site/index.html
-          grep -q "Publications" _site/index.html
           test -f _site/publications/index.html
-          grep -q "SynLogic" _site/publications/index.html
+          for term in \
+            "Junteng Liu" \
+            "Hong Kong University of Science and Technology" \
+            "Shanghai Jiao Tong University" \
+            "HKUST NLP Group" \
+            "Junxian He" \
+            "Zifei Shan" \
+            "Yu Cheng" \
+            "MINIMAX" \
+            "Tencent WXG" \
+            "Shanghai AI Lab" \
+            "Natural Language Processing" \
+            "Machine Learning" \
+            "LLM Reasoning and Reinforcement Learning" \
+            "Hallucination in Vision-Language Models" \
+            "LLM Truthfulness and Interpretability" \
+            "SynLogic" \
+            "On the Perception Bottleneck of VLMs for Chart Understanding" \
+            "On the Universal Truthfulness Hyperplane Inside LLMs" \
+            "In-Context Sharpness as Alerts" \
+            "C-Eval" \
+            "Composing Parameter-Efficient Modules with Arithmetic Operations" \
+            "jliugi@connect.ust.hk" \
+            "Vicent0205" \
+            "junteng88716710" \
+            "Scholar"; do
+            echo "Checking: $term"
+            grep -q "$term" _site/index.html || { echo "Missing: $term"; exit 1; }
+          done
+          for term in \
+            "SynLogic" \
+            "On the Perception Bottleneck of VLMs for Chart Understanding" \
+            "On the Universal Truthfulness Hyperplane Inside LLMs" \
+            "In-Context Sharpness as Alerts" \
+            "C-Eval" \
+            "Composing Parameter-Efficient Modules with Arithmetic Operations"; do
+            echo "Checking publication: $term"
+            grep -q "$term" _site/publications/index.html || { echo "Missing publication: $term"; exit 1; }
+          done
+          echo "All content checks passed."
