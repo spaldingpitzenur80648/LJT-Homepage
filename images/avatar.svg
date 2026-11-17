@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" rx="200" fill="#f3f0e7"/>
+  <circle cx="200" cy="200" r="172" fill="none" stroke="#2f3e46" stroke-width="3"/>
+  <text x="200" y="204" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Times New Roman', serif" font-size="145" fill="#2f3e46">JL</text>
+</svg>
